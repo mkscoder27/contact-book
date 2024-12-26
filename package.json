@@ -1,0 +1,22 @@
+{
+	"name": "contactbook",
+	"version": "1.0.0",
+	"license": "MIT",
+	"dependencies": {
+		"prettier": "^3.2.5",
+		"rimraf": "^5.0.5"
+	},
+	"scripts": {
+		"format": "prettier --use-tabs --write ."
+	},
+	"workspaces": [
+		"packages/api",
+		"packages/front"
+	],
+	"private": true,
+	"packageManager": "yarn@4.1.0",
+	"engines": {
+		"node": "22.11.0",
+		"yarn": "4.1.0"
+	}
+}

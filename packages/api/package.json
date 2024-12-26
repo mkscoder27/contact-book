@@ -1,0 +1,43 @@
+{
+  "name": "@contactbook/api",
+  "version": "1.0.0",
+  "dependencies": {
+    "@koa/cors": "^5.0.0",
+    "@prisma/client": "^6.0.1",
+    "@trpc/server": "^11.0.0-rc.648",
+    "@types/koa": "^2.15.0",
+    "@types/koa-router": "^7.4.8",
+    "@types/koa__cors": "^5.0.0",
+    "@types/node": "^20.11.28",
+    "apollo-server-koa": "^3.13.0",
+    "dotenv": "^16.4.5",
+    "koa": "^2.15.1",
+    "koa-router": "^12.0.1",
+    "koa-static": "^5.0.0",
+    "nodemon": "^3.1.0",
+    "prisma": "^6.0.1",
+    "prisma-json-types-generator": "^3.0.4",
+    "rimraf": "^5.0.5",
+    "trpc-koa-adapter": "^1.2.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3",
+    "zod": "^3.22.4"
+  },
+  "scripts": {
+    "clean": "rimraf ./build",
+    "compile": "tsc -p .",
+    "watch": "tsc -p . --watch",
+    "db": "yarn db:migrate && yarn db:schema",
+    "db:migrate": "prisma migrate dev --preview-feature",
+    "db:schema": "prisma generate",
+    "db:deploy": "prisma generate deploy",
+    "db:seed": "prisma db seed",
+    "build": "yarn db:schema",
+    "start": "ts-node ./src/framework/boot",
+    "dev": "nodemon --exec 'yarn start'"
+  },
+  "prisma": {
+    "schema": "./schema.prisma",
+    "seed": "ts-node ./seeders/seed.ts"
+  }
+}

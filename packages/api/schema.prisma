@@ -1,0 +1,57 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["views"]
+}
+
+generator json {
+  provider = "prisma-json-types-generator"
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+enum TagStatus {
+  included
+  excluded
+}
+
+model Contact {
+  id         String @id @default(uuid())
+  first_name String
+  last_name  String
+  phone      String
+
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  contact_tag ContactTag[]
+}
+
+model Tag {
+  id     String     @id @default(uuid())
+  status TagStatus? @default(included)
+  name   String
+
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  contact_tag ContactTag[]
+}
+
+model ContactTag {
+  id String @id @default(uuid())
+
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  contact   Contact @relation(fields: [contactId], references: [id])
+  contactId String
+
+  tag   Tag    @relation(fields: [tagId], references: [id])
+  tagId String
+
+  @@unique([contactId, tagId]) // Ensures a user cannot have duplicate tags
+}
